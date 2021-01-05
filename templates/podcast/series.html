@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <!--header-->
+    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade" data-stellar-background-ratio="0.8">
+        <div class="container"></div>
+    </div>
+  <!--end header-->
+    <!-- search section -->
+    <div class="site-section bg-light">
+      <div class="container">
+
+        <div class="row mb-5" data-aos="fade-up">
+          <div class="col-md-12 text-center">
+            <h2 class="font-weight-bold text-black">Podcasts in {{ series }} Series </h2>
+          </div>
+        </div>
+
+{% for result in podcasts %}
+           <div class="d-block d-md-flex podcast-entry bg-white mb-5" data-aos="fade-up">
+                    <div class="image" style="background-image: url('{{ result.image }}');"></div>
+                    <div class="text">
+
+                     <h3 class="font-weight-light"><a href="/podcast/{{ result.pk }}">{{ result.title }}</a></h3>
+                <div class="text-white mb-3"><span class="text-black-opacity-05"><small>Contributed by {{ result.contributor.name }}
+                     on {{ result.created|date:"M d Y" }} <span class="sep">/</span>Duration: {{ result.duration }}</small></span>
+                </div>
+                    <p class="font-weight-normal " style="font-size: 1.2rem;">{{ result.blurb }}</p>
+                        <hr>
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Language: </span><span class="badge badge-pill">{{ result.language }}</span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Area: </span><span class="badge badge-pill ">{{ result.content_area }}</span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Type: </span><span class="badge badge-pill ">{{ result.get_content_type_display }}</span>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+          {% endfor %}
+
+</div>
+        </div>
+
+{% endblock %}

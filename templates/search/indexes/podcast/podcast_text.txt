@@ -1,0 +1,7 @@
+{{object.title}}
+{{object.description}}
+{{object.content_area.name}}
+{{object.get_content_type_display}}
+{% for tag in object.tags.all %}
+    {{tag}}
+{% endfor %}

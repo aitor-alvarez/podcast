@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <!--header-->
+    <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+
+    </div>
+
+    <div class="site-section">
+      <div class="container" data-aos="fade-up">
+        <div class="row mb-5">
+          <div class="col-md-12 text-center">
+            <h2 class="font-weight-bold text-black">Upload your podcast and materials</h2>
+          </div>
+             <div class="container">
+<form id="authoring" action="#">
+      {% csrf_token %}
+    <h3>Description</h3>
+    <br>
+    <br>
+    <fieldset>
+        <h4>What is the title of your podcast?</h4>
+        {{ form.title }}
+        <br>
+        <h4>Provide a text that describes your podcast </h4>
+        {{ form.description }}
+        <br>
+        <h4>Also, some blurb for previewing the podcast</h4>
+        {{ form.blurb }}
+    </fieldset>
+
+    <h3>Content</h3>
+    <br>
+    <br>
+    <fieldset>
+        <h4>Can you describe what the main goals of this podcast are?</h4>
+        {{ form.overall_goals }}
+        <br>
+        <h4>Is there a specific learning objective? if yes please describe it </h4>
+        {{ form.learning_objective }}
+        <br>
+        <h4>Select the type of content this podcast is</h4>
+        {{ form.content_type }}
+        <br>
+        <h4>What is the total duration of the podcast? (minutes:seconds)</h4>
+        {{ form.duration }}
+        <br>
+        <h4>Is this podcast video or audio only?</h4>
+        {{ form.content_type }}
+        <br>
+        <h4>What is the target audience for this podcast?</h4>
+        {{ form.target_audience }}
+        <br>
+        <h4>Can you select the content area that best describes this podcast?</h4>
+        {{ form.content_area }}
+        <br>
+    </fieldset>
+
+
+
+    <h3>Finish</h3>
+    <fieldset>
+        <legend>Terms and Conditions</legend>
+
+        <input id="acceptTerms-2" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+    </fieldset>
+</form>
+      </div>
+    </div>
+    </div>
+    </div>
+
+  <!--end header-->
+    <div class="site-section bg-light">
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/authoring.js' %}"></script>
+{% endblock %}

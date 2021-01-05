@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+  <!--header-->
+    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade" data-stellar-background-ratio="0.8">
+        <div class="container"></div>
+    </div>
+  <!--end header-->
+
+ <div class="site-section">
+  <div class="container">
+   <div class="row">
+    <div class="col-md-8">
+
+          <h3>{{ object.title}}</h3>
+
+          <strong>  <span>Contributed by <a href="/contributor/{{ object.contributor.id }}">{{ object.contributor }}</a></span></strong>
+        <br>
+        <br>
+            <p class="text-justify">{{ object.description }}</p>
+
+        {% if object.license %}
+            <p class="text-justify"><i>{{ object.license }}</i></p>
+        {% endif %}
+    </div>
+
+
+      <div class="col-md-4">
+        <a href="{{ object.podcast_url }}"> <button type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-player" viewBox="0 0 16 16">
+  <path d="M4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3zm1 0v3h6V3H5zm3 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  <path d="M11 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"/>
+</svg>Listen to the podcast</button></a>
+          <br>
+          <br>
+          <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Language: </span>
+                        <span class="badge badge-success">{{ object.language }}</span>
+                    </div>
+              </div>
+          <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Area: </span>
+                        <span class="badge badge-secondary">{{ object.content_area }}</span>
+                    </div>
+              </div>
+          <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Type: </span>
+                        <span class="badge badge-light">{{ object.get_content_type_display }}</span>
+                    </div>
+                </div>
+          <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Duration: {{ object.duration }}</span>
+
+                    </div>
+                </div>
+       <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Captions available: {{ object.captions_available|yesno:"Yes,No"  }}</span>
+
+                    </div>
+              </div>
+       <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Commentary available: {{ object.commentary_available|yesno:"Yes,No"  }}</span>
+                    </div>
+              </div>
+       <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Produced by: {{ object.instructor_produced|yesno:"Instructor, Students"  }}</span>
+
+                    </div>
+              </div>
+       {% if object.series %}
+           <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Part of: <a href="/series/{{ object.series.id }}">{{ object.series.name  }} Series</a></span>
+
+                    </div>
+              </div>
+       {% endif %}
+      </div>
+
+
+</div>
+      <hr>
+       {% if object.language_variety or object.language_variety or object.accent or object.language_features or object.language_proficiency or object.target_audience %}
+      <div class="row">
+        <div class="col-md-12">
+            <h4>Language features</h4>
+            {% if language_variety %}
+                <p class="text-justify"><strong>Language variety:</strong> {{ object.language_variety }}</p>
+            {% endif %}
+        {% if language_variety %}
+                <p class="text-justify"><strong>Language variety:</strong> {{ object.language_variety }}</p>
+        {% endif %}
+        {% if accent %}
+                <p class="text-justify"><strong>Accent:</strong> {{ object.accent }}</p>
+        {% endif %}
+        {% if language_features %}
+                <p class="text-justify"><strong>Features:</strong> {{ object.language_features }}</p>
+        {% endif %}
+        {% if language_proficiency %}
+                <p class="text-justify"><strong>Language proficiency:</strong> {{ object.language_proficiency }}</p>
+        {% endif %}
+        {% if target_audience %}
+                <p class="text-justify"><strong>Target audience:</strong> {{ object.target_audience }}</p>
+        {% endif %}
+        </div>
+      </div>
+       {% endif %}
+       {% if object.overall_goals or object.learning_objective  %}
+      <div class="row">
+        <div class="col-md-12">
+            <h4>Learning objectives</h4>
+            {% if overall_goals  %}
+                <p class="text-justify"><strong>Overall goals:</strong> {{ object.overall_goals }}</p>
+            {% endif %}
+            {% if learning_objective %}
+                <p class="text-justify"><strong>Learning objectives:</strong> {{ object.learning_objective }}</p>
+            {% endif %}
+        </div>
+      </div>
+  {% endif %}
+  {% if object.materials.all  %}
+      <div class="row">
+        <div class="col-md-12">
+            <h4>Materials</h4>
+        {% for mat in object.materilas.all %}
+
+            <p class="text-justify"><strong>Overall goals:</strong> {{ mat }}</p>
+
+        {% endfor %}
+        </div>
+      </div>
+  {% endif %}
+
+   {% if related %}
+ <div class="row">
+ <div class="col-md-12">
+            <h4>Related podcasts</h4>
+<br>
+<br>
+     {% include 'podcast/similar_tags.html' %}
+ </div>
+ {% endif %}
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+  <!--header-->
+    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade" data-stellar-background-ratio="0.8">
+        <div class="container"></div>
+    </div>
+  <!--end header-->
+
+ <div class="site-section">
+  <div class="container">
+   <div class="row">
+
+   <div class="col-md-4">
+       {% if contributor.image %}
+       <div class="row">
+           <picture>
+                <img src="{{ contributor.image }}" class="rounded mx-auto d-block" alt="Responsive image">
+           </picture>
+       </div>    
+        {% endif %}
+   </div>
+
+    <div class="col-md-8">
+
+          <h2>{{ contributor.name }}</h2>
+            <h5 class="font-italic">Contributor</h5>
+
+            <br>
+
+          <p><strong>  <span>Website:</span></strong>
+              {{ contributor.website }}
+          </p>
+          <p><strong>  <span>Contact:</span></strong>
+              {{ contributor.contact }}
+          </p>
+
+          <p><strong>  <span>About:</span></strong>
+              {{ contributor.about_me }}
+          </p>
+        <br>
+        <br>
+            <p class="text-justify">{{ object.description }}</p>
+
+        {% if object.license %}
+            <p class="text-justify"><i>{{ object.license }}</i></p>
+        {% endif %}
+    </div>
+
+
+   </div>
+  <hr>
+  {% if podcasts %}
+        <div class="row mb-5" data-aos="fade-up">
+          <div class="col-md-12 text-center">
+            <h2 class="font-weight-bold text-black">Latest podcasts by {{ contributor.name }} </h2>
+          </div>
+        </div>
+
+{% for result in podcasts %}
+           <div class="d-block d-md-flex podcast-entry bg-white mb-5" data-aos="fade-up">
+                    <div class="image" style="background-image: url('{{ result.image }}');"></div>
+                    <div class="text">
+
+                     <h3 class="font-weight-light"><a href="/podcast/{{ result.pk }}">{{ result.title }}</a></h3>
+                <div class="text-white mb-3"><span class="text-black-opacity-05"><small>Contributed by {{ result.contributor.name }}
+                     on {{ result.created|date:"M d Y" }} <span class="sep">/</span>Duration: {{ result.duration }}</small></span>
+                </div>
+                    <p class="font-weight-normal " style="font-size: 1.2rem;">{{ result.blurb }}</p>
+                        <hr>
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Language: </span><span class="badge badge-pill">{{ result.language }}</span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Area: </span><span class="badge badge-pill ">{{ result.content_area }}</span>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Type: </span><span class="badge badge-pill ">{{ result.get_content_type_display }}</span>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+          {% endfor %}
+  {% endif %}
+  </div>
+ </div>
+
+
+
+{% endblock %}

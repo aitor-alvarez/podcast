@@ -1,0 +1,21 @@
+
+<div class="nonloop-block-13 owl-carousel">
+
+{% for relat in related %}
+
+
+            <!--Collaborator loop-->
+          <div class="text-center p-6 p-md-6 bg-white">
+            <div class="mb-4">
+              <img src="images/{{ relat.image }}" alt="Image" class="w-50 mx-auto img-fluid">
+            </div>
+            <div class="">
+              <h3 class="font-weight-light h5"><a href="/podcast/{{ relat.id }}">{{ relat.title }}</a></h3>
+            </div>
+          </div>
+            <!--End loop-->
+
+{% endfor %}
+</div>
+
+

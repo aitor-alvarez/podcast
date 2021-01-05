@@ -1,0 +1,9 @@
+sqlite3
+*.json
+migrations/
+venv/
+media/
+settings.py
+.idea/
+utils/
+data_index/

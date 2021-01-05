@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <!--header-->
+    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade" data-stellar-background-ratio="0.8">
+        <div class="container"></div>
+    </div>
+  <!--end header-->
+    <!-- search section -->
+    <div class="site-section bg-light">
+      <div class="container">
+
+        <div class="row mb-5" data-aos="fade-up">
+          <div class="col-md-12 text-center">
+            <h2 class="font-weight-bold text-black">Search Podcasts</h2>
+          </div>
+        </div>
+          <div class="form-group">
+            <form method="get" action="/search/" autocomplete="chrome-off">
+      <div class="input-group">
+          <input type="text" class="form-control AutoComplete" type="text" autocomplete="off" id=id_q" name="q" placeholder="Search...">
+
+          {% for field in form %}
+              {% if field.name == 'language' %}
+          {{ field }}
+              {% endif %}
+              {% if field.name == 'content_area' %}
+          {{ field }}
+              {% endif %}
+          {% endfor %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+          </div>
+
+          {% if  page_obj.object_list %}
+              <!--
+              <a class="btn-sm btn-info" href="#" role="button" id="show_filters">Show filters</a>
+              <br>
+              -->
+           <div id="filters">
+              <h3>Filters</h3>
+              <br>
+
+          <div class="row">
+            <div class="col-sm">
+            <h5>Content area</h5>
+              {% for cat in categories %}
+                  <input type="checkbox" id="{{ cat.0.0 }}" name="{{ cat.0.0 }}" value="{{ cat.0.1 }}">
+                  <label for="{{ cat.0 }}"> {{ cat.0.0 }} ({{ cat.1 }})</label><br>
+              {% endfor %}
+            </div>
+
+              <div class="col-sm">
+            <h5>Language</h5>
+              {% for cat in languages %}
+                  <input type="checkbox" id="{{ cat.0.0 }}" name="{{ cat.0.0 }}" value="{{ cat.0.1 }}">
+                  <label for="{{ cat.0 }}"> {{ cat.0.0 }} ({{ cat.1 }})</label><br>
+
+              {% endfor %}
+            </div>
+
+              <div class="col-sm">
+            <h5>Content type</h5>
+              {% for cat in content_type %}
+                  <input type="checkbox" id="{{ cat.0.0 }}" name="{{ cat.0.0 }}" value="{{ cat.0.1 }}">
+                  <label for="{{ cat.0 }}"> {{ cat.0.0 }} ({{ cat.1 }})</label><br>
+
+              {% endfor %}
+            </div>
+          </div>
+           <br>
+           <button type="button" class="btn btn-outline-primary btn-sm" id="update_search">Filter search</button>
+                <hr>
+        </div>
+              <br>
+
+            <h3>Results</h3>
+
+            {% for result in page_obj.object_list %}
+
+                <div class="d-block d-md-flex podcast-entry bg-white mb-5" data-aos="fade-up">
+                    <div class="image" style="background-image: url('{{ result.object.image }}');"></div>
+                    <div class="text">
+
+                     <h3 class="font-weight-light"><a href="/podcast/{{ result.object.pk }}">{{ result.object.title }}</a></h3>
+                <div class="text-white mb-3"><span class="text-black-opacity-05"><small>Contributed by {{ result.object.contributor.name }}
+                     on {{ result.object.created|date:"M d Y" }} <span class="sep">/</span>Duration: {{ result.object.duration }}</small></span>
+                </div>
+                    <p class="font-weight-normal " style="font-size: 1.2rem;">{{ result.object.blurb }}</p>
+                        <hr>
+                <div class="row">
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Language: </span><a href="/search/?q={{query}}&language={{ result.object.language.id }}">
+                        <span class="badge badge-pill badge-success">{{ result.object.language }}</span></a>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Area: </span>
+                        <a href="/search/?q={{query}}&content_area={{ result.object.content_area.id }}"><span class="badge badge-pill badge-secondary">{{ result.object.content_area }}</span></a>
+                    </div>
+                    <div class="col-sm">
+                        <span class="font-weight-normal " style="font-size: 1rem;">Content Type: </span>
+                        <a href="/search/?q={{query}}&content_type={{ result.object.content_type }}"><span class="badge badge-pill badge-light">{{ result.object.get_content_type_display }}</span></a>
+                    </div>
+                </div>
+                    {% if result.object.tags %}
+                <div class="row">
+                    <div class="col-md">
+                    <span class="font-weight-normal " style="font-size: 1rem;">Tags: </span>
+                        {% for tag in result.object.tags.all %}
+                           <a href="/search/?q={{ tag }}"> <span class="badge badge-pill badge-info"> {{ tag }}</span></a>
+
+                        {% endfor %}
+                    </div>
+                </div>
+                    {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <h4>No results found.</h4>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+              <br>
+            <h4>Discover new podcasts using the search form</h4>
+        {% endif %}
+</div>
+        </div>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$( document ).ready(function() {
+
+    $('#filters').hide();
+
+    $('#show_filters').click(function () {
+
+        $('#filters').show(550);
+        $('#show_filters').hide(500);
+
+    })
+
+
+    $('.AutoComplete').autoComplete({
+    resolver: 'custom',
+        noResultsText:'No suggestions...',
+    events: {
+        search: function (qry, callback) {
+            $.ajax(
+                '/search/auto/',
+                {
+                    data: { 'q': qry}
+                }
+            ).done(function (res) {
+                callback(res.results)
+            });
+        }
+    }
+});
+
+
+});
+
+
+  </script>
+{% endblock %}
