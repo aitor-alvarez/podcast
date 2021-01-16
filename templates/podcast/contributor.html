@@ -15,11 +15,11 @@
 
    <div class="col-md-4">
        {% if contributor.image %}
-       <div class="row">
+
            <picture>
-                <img src="{{ contributor.image }}" class="rounded mx-auto d-block" alt="Responsive image">
+                <img src="/static/media/{{ contributor.image }}" class="img-thumbnail " alt="Responsive image">
            </picture>
-       </div>    
+
         {% endif %}
    </div>
 
@@ -55,13 +55,13 @@
   {% if podcasts %}
         <div class="row mb-5" data-aos="fade-up">
           <div class="col-md-12 text-center">
-            <h2 class="font-weight-bold text-black">Latest podcasts by {{ contributor.name }} </h2>
+            <h3 class="font-weight-bold text-black">Latest podcasts by {{ contributor.name }} </h3>
           </div>
         </div>
 
 {% for result in podcasts %}
            <div class="d-block d-md-flex podcast-entry bg-white mb-5" data-aos="fade-up">
-                    <div class="image" style="background-image: url('{{ result.image }}');"></div>
+                    <div class="image" style="background-image: url('/static/media/{{ result.image }}');"></div>
                     <div class="text">
 
                      <h3 class="font-weight-light"><a href="/podcast/{{ result.pk }}">{{ result.title }}</a></h3>

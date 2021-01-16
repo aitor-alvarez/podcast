@@ -25,8 +25,8 @@ def get_contributor_podcasts(request, contributor_id):
 
 
 def get_podcasts(request):
-	podcasts = Podcast.objects.all()
-	podcasts_last =podcasts[:4]
+	podcasts = Podcast.objects.all().order_by('-id')
+	podcasts_last =podcasts[:5]
 	languages = podcasts.values('id').distinct()
 	languages = Language.objects.filter(id__in=languages)
 	contributors = podcasts.values('id').distinct()
