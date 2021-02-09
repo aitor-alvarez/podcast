@@ -48,8 +48,8 @@
         <div class="row align-items-center">
 
 
-          <div class="col-3" data-aos="fade-down">
-            <h1><a href="#" class="text-white h2">Community Podcast</a></h1>
+          <div class="col-3" >
+            <h1><a href="/" class="text-white h2">Community Podcast</a></h1>
           </div>
           <div class="col-9" data-aos="fade-down">
             <nav class="site-navigation position-relative text-right text-md-right" role="navigation">
@@ -106,24 +106,7 @@
   <script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
 
-  <script>
-      document.addEventListener('DOMContentLoaded', function() {
-                var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                for (var i = 0; i < total; i++) {
-                    new MediaElementPlayer(mediaElements[i], {
-                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                        shimScriptAccess: 'always',
-                        success: function () {
-                            var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                            for (var j = 0; j < targetTotal; j++) {
-                                target[j].style.visibility = 'visible';
-                            }
-                  }
-                });
-                }
-            });
-    </script>
 
   <script src="{% static 'js/main.js' %}"></script>
 

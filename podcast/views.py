@@ -105,7 +105,7 @@ def add_to_mailinglist(request):
 		email = request.POST['data']
 		client, list_id = get_config()
 		try:
-			response = client.lists.add_list_member(list_id, {"email_address": email, "status": "cleaned"})
+			response = client.lists.add_list_member(list_id, {"email_address": email, "status": "Subscribed"})
 			return HttpResponse('You have been added to our mailing list!')
 		except ApiClientError as error:
 			return HttpResponse('This email is already in our mailing list.')

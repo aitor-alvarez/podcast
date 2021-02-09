@@ -3,7 +3,7 @@
 
 {% block content %}
     <!--header-->
-    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade" data-stellar-background-ratio="0.8">
+    <div class="site-blocks-cover overlay" style="background-image: url(/static/images/podcast.jpg);" data-aos="fade-up" data-stellar-background-ratio="0.8">
         <div class="container"></div>
     </div>
   <!--end header-->
@@ -11,7 +11,7 @@
     <div class="site-section bg-light">
       <div class="container">
 
-        <div class="row mb-5" data-aos="fade-up">
+        <div class="row mb-5" >
           <div class="col-md-12 text-center">
             <h2 class="font-weight-bold text-black">Search Podcasts</h2>
           </div>
@@ -39,6 +39,7 @@
               <a class="btn-sm btn-info" href="#" role="button" id="show_filters">Show filters</a>
               <br>
               -->
+
            <div id="filters">
               <h3>Filters</h3>
               <br>
@@ -68,6 +69,7 @@
                   <label for="{{ cat.0 }}"> {{ cat.0.0 }} ({{ cat.1 }})</label><br>
 
               {% endfor %}
+
             </div>
           </div>
            <br>
@@ -80,8 +82,8 @@
 
             {% for result in page_obj.object_list %}
 
-                <div class="d-block d-md-flex podcast-entry bg-white mb-5" data-aos="fade-up">
-                    <div class="image" style="background-image: url('{{ result.object.image }}');"></div>
+                <div class="d-block d-md-flex podcast-entry bg-white mb-5" >
+                    <div class="image" style="background-image: url('/static/media/{{ result.object.image }}');"></div>
                     <div class="text">
 
                      <h3 class="font-weight-light"><a href="/podcast/{{ result.object.pk }}">{{ result.object.title }}</a></h3>
@@ -121,11 +123,13 @@
                 <h4>No results found.</h4>
             {% endfor %}
 
-            {% if page.has_previous or page.has_next %}
+
+
+            {% if page_obj.has_previous or page_obj.has_next %}
                 <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    {% if page_obj.has_previous %}<a href="{{ request.get_full_path }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; Previous{% if page_obj.has_previous %}</a>{% endif %}
                     |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                    {% if page_obj.has_next %}<a href="{{ request.get_full_path }}&amp;page={{ page_obj.next_page_number }}">{% endif %}Next &raquo;{% if page_obj.has_next %}</a>{% endif %}
                 </div>
             {% endif %}
         {% else %}
