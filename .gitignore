@@ -7,3 +7,6 @@ settings.py
 .idea/
 utils/
 data_index/
+*.pyc*
+__pycache__/
+.DS_Store
