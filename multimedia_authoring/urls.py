@@ -17,4 +17,6 @@ urlpatterns = [
 		path('contributor/<contributor_id>', get_contributor_podcasts),
 	  path('add_mailing/', add_to_mailinglist)
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
